@@ -1,6 +1,12 @@
 controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
     abolfazl.vy = -300
 })
+scene.onOverlapTile(SpriteKind.Player, sprites.dungeon.hazardLava0, function (sprite, location) {
+    game.gameOver(false)
+})
+scene.onOverlapTile(SpriteKind.Player, sprites.dungeon.chestClosed, function (sprite, location) {
+    game.gameOver(true)
+})
 let abolfazl: Sprite = null
 tiles.setCurrentTilemap(tilemap`level2`)
 abolfazl = sprites.create(img`
@@ -23,3 +29,7 @@ abolfazl = sprites.create(img`
     `, SpriteKind.Player)
 tiles.placeOnRandomTile(abolfazl, sprites.dungeon.collectibleInsignia)
 scene.cameraFollowSprite(abolfazl)
+controller.moveSprite(abolfazl, 100, 0)
+forever(function () {
+    abolfazl.vy += 20
+})
